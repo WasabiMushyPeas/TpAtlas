@@ -7,6 +7,7 @@ public final class TpAtlas extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
+        System.out.println("TpAtlas is enabled!");
 
     }
 
