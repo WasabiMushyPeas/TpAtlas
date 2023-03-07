@@ -82,7 +82,7 @@ public final class TpAtlas extends JavaPlugin {
                 e.printStackTrace();
             }
             try {
-                System.out.println(ChatColor.BLUE + "Reading in the list.");
+                System.out.println(ChatColor.AQUA + "Reading in the list.");
                 listOfEntries = (ArrayList<Entry>) ois.readObject();
             } catch (IOException e) {
                 e.printStackTrace();
