@@ -1,0 +1,4 @@
+name: tpAtlas
+version: '${project.version}'
+main: myserver.tpatlas.tp.TpAtlas
+api-version: 1.19
