@@ -22,20 +22,22 @@ public class TpSetCommand implements TabExecutor {
             if(strings.length == 4){
                 String playerName = commandSender.getName();
                 String locationName = strings[1];
-                int x = Integer.parseInt(strings[2]);
-                int y = Integer.parseInt(strings[3]);
-                int z = Integer.parseInt(strings[4]);
+                int x = player.getLocation().getBlockX();
+                int y = player.getLocation().getBlockY();
+                int z = player.getLocation().getBlockZ();
 
-                Atlas atlas = new Atlas(x, y, z, playerName, locationName);
-                atlas.setPlayerName(playerName);
-                atlas.setLocationName(locationName);
-                atlas.setX(x);
-                atlas.setY(y);
-                atlas.setZ(z);
+                Entry entry = new Entry(x, y, z, playerName, locationName);
+                entry.setPlayerName(playerName);
+                entry.setLocationName(locationName);
+                entry.setX(x);
+                entry.setY(y);
+                entry.setZ(z);
 
-                TpAtlas.atlasList.add(atlas);
+                Atlas atlas = new Atlas(player);
+                atlas.addLocation(entry);
 
-                player.sendMessage("Atlas set!");
+
+                player.sendMessage("Location " + locationName + " has been set to " + x + ", " + y + ", " + z);
             }
 
 

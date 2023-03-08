@@ -1,16 +1,11 @@
 package myserver.tpatlas.tp;
 
-import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
 public final class TpAtlas extends JavaPlugin {
-    private ArrayList<Atlas> listOfPostings;
+    private ArrayList<Entry> listOfPostings;
 
     @Override
     public void onEnable() {

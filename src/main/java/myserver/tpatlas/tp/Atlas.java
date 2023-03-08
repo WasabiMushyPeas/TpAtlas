@@ -1,76 +1,109 @@
 package myserver.tpatlas.tp;
 
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.util.ArrayList;
 
 public class Atlas {
+    private static ArrayList<Entry> listOfLocations;
+    private Player player;
 
-    private int x;
-    private int y;
-    private int z;
+    // Constructor
+    public ArrayList<Atlas> atlasArrayList;
 
-    private String playerName;
-    private String locationName;
+    public Atlas(Player player) {
+        this.player = player;
+        //probably need to write it to a file so people don't lose their stuff.
 
-    public Atlas(int x, int y, int z, String playerName, String locationName) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-        this.playerName = playerName;
-        this.locationName = locationName;
+        //Create a data structure to store the items for sale.  This structure should store the following:
+        //  1. The seller
+        //  2. The item stack for sale
+        //  3. The item they want in return
+        //  4. The quantity they want
+        //Method to
+        boolean tryToOpenFile = true;
+
+        atlasArrayList = new ArrayList<Atlas>();
+
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream("atlas.file");
+        } catch (FileNotFoundException e) {
+            System.out.println("Valid atlas.file not found.");
+            tryToOpenFile = false;
+        }if (tryToOpenFile) {
+            ObjectInputStream ois = null;
+            try {
+                ois = new ObjectInputStream(fis);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                System.out.println(ChatColor.BLUE + "Reading in the list.");
+                atlasArrayList = (ArrayList) ois.readObject();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            try {
+                ois.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(!atlasArrayList.isEmpty()){
+            System.out.println(ChatColor.BLUE + "Printing the list.");
+        }
     }
 
-    public Atlas(int x, int y, int z, String playerName) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-        this.playerName = playerName;
-        this.locationName = "X: " + x + " Y: " + y + " Z: " + z;
-    }
 
     // Getters and Setters
-    public int getX() {
-        return x;
+    public ArrayList<Entry> getListOfLocations() {
+        return listOfLocations;
     }
 
-    public void setX(int x) {
-        this.x = x;
+    public static void addLocation(Entry entry) {
+        listOfLocations.add(entry);
     }
 
-    public int getY() {
-        return y;
+    public Player getPlayer() {
+        return player;
     }
 
-    public void setY(int y) {
-        this.y = y;
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
-    public int getZ() {
-        return z;
+    public void saveAtlas(){
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream("atlas.file");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        ObjectOutputStream oos = null;
+
+        try {
+            oos = new ObjectOutputStream(fos);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            oos.writeObject(atlasArrayList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            oos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void setZ(int z) {
-        this.z = z;
-    }
-
-    public String getPlayerName() {
-        return playerName;
-    }
-
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
-
-    public String getLocationName() {
-        return locationName;
-    }
-
-    public void setLocationName(String locationName) {
-        this.locationName = locationName;
-    }
 }

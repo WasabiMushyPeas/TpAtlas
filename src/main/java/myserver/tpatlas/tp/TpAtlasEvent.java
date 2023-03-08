@@ -3,11 +3,9 @@ package myserver.tpatlas.tp;
 import org.bukkit.event.Listener;
 
 public class TpAtlasEvent implements Listener {
+    TpAtlas plugin;
 
-    private TpAtlas plugin;
-
-    public TpAtlasEvent(TpAtlas tpAtlas) {
+    public TpAtlasEvent(TpAtlas plugin) {
         this.plugin = plugin;
-
     }
 }
